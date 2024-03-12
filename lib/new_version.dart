@@ -110,6 +110,7 @@ class NewVersion {
       debugPrint(
           'The target platform "${Platform.operatingSystem}" is not yet supported by this package.');
     }
+    return null;
   }
 
   /// This function attempts to clean local version strings so they match the MAJOR.MINOR.PATCH
@@ -295,8 +296,8 @@ class NewVersion {
   /// Launches the Apple App Store or Google Play Store page for the app.
   Future<void> launchAppStore(String appStoreLink) async {
     debugPrint(appStoreLink);
-    if (await canLaunch(appStoreLink)) {
-      await launch(appStoreLink);
+    if (await canLaunchUrl(Uri.parse(appStoreLink))) {
+      await launchUrl(Uri.parse(appStoreLink));
     } else {
       throw 'Could not launch appStoreLink';
     }
